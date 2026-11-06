@@ -12,7 +12,7 @@ export const site = {
     "Das'hair réunit des produits de soin, des prestations capillaires et beauté, et une académie pour apprendre les gestes du métier.",
 
   /** Numéro WhatsApp au format international SANS « + » ni espaces (ex. 226XXXXXXXX). À fournir par Das'hair. */
-  whatsapp: null as string | null,
+  whatsapp: '22657138126' as string | null, // +226 57 13 81 26 (fourni le 06/11)
   telephone: null as string | null,
   email: null as string | null,
   adresse: null as string | null,
