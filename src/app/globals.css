@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * DAS'HAIR — système visuel
+ * Inspiration (pas copie) : la fluidité et la matière des sites créatifs premium.
+ * Papier crème légèrement grainé, noir chaud, et UNE couleur vive : l'indigo des pagnes teints,
+ * poussé à sa saturation. L'ambre du karité reste une touche rare (l'apostrophe du nom).
+ * Toutes les couleurs passent par ces jetons : aucune couleur codée en dur dans un composant.
+ */
+@theme {
+  --color-fond: #f5f2ec;        /* papier crème */
+  --color-fond-2: #ebe6dd;      /* aplats de section */
+  --color-surface: #fffdf9;     /* cartes, formulaires, tiroirs */
+  --color-filet: #ddd6ca;
+  --color-encre: #15131a;       /* noir chaud : texte et sections sombres */
+  --color-encre-2: #27242e;
+  --color-sourdine: #5c5765;        /* texte secondaire : 6,2:1 sur le fond */
+  --color-sourdine-clair: #aaa4b2;  /* texte secondaire sur noir */
+  --color-action: #15131a;          /* boutons pilule */
+  --color-action-fonce: #000000;
+  --color-action-clair: #e4e6fa;
+  --color-indigo: #2f43d4;          /* l'accent vif : 7:1 avec du blanc */
+  --color-indigo-fonce: #2233b0;
+  --color-indigo-clair: #e4e6fa;
+  --color-ambre: #c27a2c;
+  --color-ambre-texte: #8a531b;
+  --color-succes: #2f6b4f;
+  --color-erreur: #a3361f;
+
+  --font-display: var(--font-hanken), system-ui, sans-serif;
+  --font-serif: var(--font-bodoni), "Bodoni 72", Didot, Georgia, serif;
+  --font-sans: var(--font-hanken), system-ui, sans-serif;
+
+  --radius-ctrl: 14px;
+  --radius-carte: 28px;
+
+  --ease-sortie: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-cinema: cubic-bezier(0.65, 0, 0.15, 1);
+
+  --animate-defile: defile 38s linear infinite;
+  @keyframes defile { to { transform: translateX(-50%); } }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    background: var(--color-fond);
+    color: var(--color-encre);
+    -webkit-text-size-adjust: 100%;
   }
+  body {
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    background: var(--color-fond);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Grain de papier : une texture très légère qui retire l'effet « écran plat ». */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+  ::selection { background: var(--color-indigo); color: #fff; }
+  :focus-visible { outline: 2px solid var(--color-indigo); outline-offset: 3px; }
+  .sur-sombre :focus-visible { outline-color: #fff; }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Défilement doux (Lenis) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@layer utilities {
+  /* Titres : grotesque grasse et serrée ; les mots clés passent en italique Bodoni (.accent). */
+  .titre { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.045em; line-height: 0.95; }
+  .accent { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.02em; color: var(--color-indigo); }
+  .sur-sombre .accent { color: #9aa6ff; }
+  .etiquette { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; }
+  .sur-titre { font-family: var(--font-sans); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.01em; }
+  .chiffres { font-variant-numeric: tabular-nums lining-nums; }
+  .conteneur { width: 100%; max-width: 88rem; margin-inline: auto; padding-inline: 1.25rem; }
+  @media (min-width: 768px) { .conteneur { padding-inline: 2.5rem; } }
+  .section { padding-block: 5.5rem; }
+  @media (min-width: 1024px) { .section { padding-block: 8.5rem; } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
