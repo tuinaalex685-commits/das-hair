@@ -8,6 +8,7 @@ import { PiedDePage } from '@/components/layout/PiedDePage';
 import { PanierTiroir } from '@/components/products/PanierTiroir';
 import { DefilementDoux } from '@/components/providers/DefilementDoux';
 import { Curseur } from '@/components/ui/Curseur';
+import { BandeauCookies } from '@/components/ui/BandeauCookies';
 
 const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni', axes: ['opsz'], style: ['normal', 'italic'], display: 'swap' });
 const hanken = Hanken_Grotesk({ subsets: ['latin'], variable: '--font-hanken', display: 'swap' });
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <PanierTiroir />
           <DefilementDoux />
           <Curseur />
+          <BandeauCookies />
         </BoutiqueProvider>
         <p className="pointer-events-none fixed bottom-4 left-4 z-30 hidden rounded-full border border-filet bg-surface/85 px-4 py-1.5 text-encre backdrop-blur text-[0.78rem] font-medium md:block">
           Prototype : contenus de démonstration

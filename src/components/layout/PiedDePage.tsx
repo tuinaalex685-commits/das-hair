@@ -8,6 +8,7 @@ import { useBoutique } from '@/components/providers/Boutique';
 import { defilerVers } from '@/components/providers/DefilementDoux';
 import { IconeWhatsApp } from '@/components/ui/BoutonWhatsApp';
 import { suivre } from '@/lib/analytics';
+import { LienGererCookies } from '@/components/ui/BandeauCookies';
 
 /**
  * Pied de page : un dernier appel (rendez-vous), les contacts réels « à compléter »,
@@ -80,6 +81,8 @@ export function PiedDePage() {
             <ul className="space-y-3">
               <li><Link href="/mentions-legales" className="text-sourdine-clair hover:text-white">Mentions légales</Link></li>
               <li><Link href="/confidentialite" className="text-sourdine-clair hover:text-white">Confidentialité</Link></li>
+              <li><Link href="/cookies" className="text-sourdine-clair hover:text-white">Politique de cookies</Link></li>
+              <li><LienGererCookies className="text-left text-sourdine-clair hover:text-white" /></li>
               <li><Link href="/contact" className="text-sourdine-clair hover:text-white">Écrire à la maison</Link></li>
             </ul>
             <p className="col-span-2 text-[0.85rem] text-sourdine-clair md:col-span-1">Horaires&nbsp;: {site.horaires ?? 'à compléter'}</p>

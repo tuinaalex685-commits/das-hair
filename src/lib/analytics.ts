@@ -6,6 +6,8 @@
  * le navigateur. Aucune donnée personnelle (nom, téléphone, message) n'est jamais transmise :
  * uniquement le type d'action et l'élément concerné (identifiant de produit, de soin…).
  */
+import { mesureAutorisee } from '@/lib/consentement';
+
 export type EvenementConversion =
   | 'view_shop' | 'view_product' | 'product_contact_click' | 'product_order_click'
   | 'view_service' | 'appointment_click'
@@ -20,6 +22,8 @@ declare global {
 
 export function suivre(evenement: EvenementConversion, proprietes: Proprietes = {}) {
   if (typeof window === 'undefined') return;
+  // Rien n'est mesuré sans l'accord explicite du visiteur (bandeau cookies).
+  if (!mesureAutorisee()) return;
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: evenement, ...proprietes });
   if (process.env.NODE_ENV !== 'production') console.debug('[conversion]', evenement, proprietes);
