@@ -34,6 +34,8 @@ export function EnTete() {
     setDefile(y > 30);
     setCache(y > 240 && y > avant);
   });
+  // Pages dont le haut est sombre (bandeau photo) : le logo passe en clair tant qu'on n'a pas défilé.
+  const hautSombre = !defile && !menu && (['/rendez-vous', '/soins', '/formations'].includes(chemin) || chemin.startsWith('/formations/'));
   useEffect(() => { bloquerDefilement(menu); }, [menu]);
   useEffect(() => { setMenu(false); }, [chemin]);
 
@@ -48,7 +50,7 @@ export function EnTete() {
         animate={{ y: cache && !menu ? '-110%' : '0%' }} transition={{ duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
         className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ${defile ? 'border-b border-filet/70 bg-fond/80 backdrop-blur-md' : 'border-b border-transparent'}`}>
         <div className="conteneur flex h-18 items-center justify-between gap-6">
-          <Logo />
+          <Logo className={`transition-colors duration-300 ${hautSombre ? 'text-surface' : ''}`} />
           <nav aria-label="Navigation principale" className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
             <ul className="flex items-center gap-1 rounded-full border border-filet bg-surface/70 p-1.5 backdrop-blur">
               {navigation.map((n) => {
@@ -75,8 +77,8 @@ export function EnTete() {
                 )}
               </AnimatePresence>
             </button>
-            <Link href="/soins" className={classeBouton('principal', 'hidden !h-11 !pl-5 !pr-1.5 text-[0.88rem] md:inline-flex')}>
-              Prendre rendez-vous<span className="scale-[0.85]"><Fleche /></span>
+            <Link href="/rendez-vous" className={classeBouton('principal', '!h-11 whitespace-nowrap !pl-5 !pr-1.5 text-[0.88rem]')}>
+              <span className="md:hidden">Rendez-vous</span><span className="hidden md:inline">Prendre rendez-vous</span><span className="scale-[0.85]"><Fleche /></span>
             </Link>
           </div>
         </div>

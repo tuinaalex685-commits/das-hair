@@ -46,7 +46,7 @@ export function PiedDePage() {
             <p className="mt-6 max-w-lg text-[1.05rem] text-sourdine-clair">Choisissez une prestation : votre demande de rendez-vous est rédigée pour vous, l’équipe confirme le créneau.</p>
           </div>
           <div className="flex lg:col-span-4 lg:justify-end">
-            <motion.a href="/soins" onPointerMove={aimant} onPointerLeave={() => { mx.set(0); my.set(0); }}
+            <motion.a href="/rendez-vous" onPointerMove={aimant} onPointerLeave={() => { mx.set(0); my.set(0); }}
               onClick={() => suivre('appointment_click', { source: 'pied_de_page' })}
               style={{ x, y }}
               className="group grid h-44 w-44 place-items-center rounded-full bg-indigo text-center text-white transition-colors hover:bg-indigo-fonce lg:h-52 lg:w-52">

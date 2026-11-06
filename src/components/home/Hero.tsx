@@ -55,7 +55,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div {...apparait(0.62)} className="mt-9 flex flex-wrap items-center gap-3">
-            <Link href="/soins" onClick={() => suivre('appointment_click', { source: 'hero' })} className={classeBouton('principal')}>
+            <Link href="/rendez-vous" onClick={() => suivre('appointment_click', { source: 'hero' })} className={classeBouton('principal')}>
               Réserver un soin<Fleche />
             </Link>
             <Link href="/boutique" onClick={() => suivre('view_shop', { source: 'hero' })} className={classeBouton('secondaire')}>
